@@ -6,12 +6,16 @@ import javax.annotation.PreDestroy;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author ikolosov
  */
 @Component
 public class TaskExecutor implements ITaskExecutor {
+
+	private static final Logger logger = Logger.getLogger(TaskExecutor.class.getName());
 
 	private final ExecutorService service = Executors.newSingleThreadExecutor();
 
@@ -26,6 +30,7 @@ public class TaskExecutor implements ITaskExecutor {
 
 	@PreDestroy
 	private void serviceShutDown() {
+		logger.log(Level.INFO, "shutting down executor service...");
 		service.shutdown();
 	}
 }

@@ -37,6 +37,7 @@ public class SessionController {
 		SessionInfo sessionInfo = new SessionInfo();
 		sessionInfo.setSessionId(session.getId());
 		sessionInfo.setCreationTime(new Date(session.getCreationTime()).toString());
+		logger.log(Level.INFO, "session info sent: " + sessionInfo.toString());
 		return sessionInfo;
 	}
 
@@ -48,8 +49,10 @@ public class SessionController {
 	@ResponseBody
 	public ModelAndView storeInputInSession(@RequestParam String customInput) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("customInput", taskExecutor.process(customInput));
+		String processed = taskExecutor.process(customInput);
+		mav.addObject("customInput", processed);
 		mav.setViewName("../../index");
+		logger.log(Level.INFO, "processed input: " + processed);
 		return mav;
 	}
 

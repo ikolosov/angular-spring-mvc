@@ -23,4 +23,12 @@ public class SessionInfo {
 	public void setCreationTime(String creationTime) {
 		this.creationTime = creationTime;
 	}
+
+	@Override
+	public String toString() {
+		return "SessionInfo{" +
+				"sessionId='" + sessionId + '\'' +
+				", creationTime='" + creationTime + '\'' +
+				'}';
+	}
 }
