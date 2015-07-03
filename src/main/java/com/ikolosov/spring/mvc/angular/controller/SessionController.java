@@ -47,7 +47,7 @@ public class SessionController {
 	)
 	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
-	public ModelAndView storeInputInSession(@RequestParam String customInput) {
+	public ModelAndView storeInputInSession(@RequestBody String customInput) {
 		ModelAndView mav = new ModelAndView();
 		String processed = taskExecutor.process(customInput);
 		mav.addObject("customInput", processed);

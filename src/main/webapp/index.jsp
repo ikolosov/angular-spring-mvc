@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!doctype html>
-<html lang="en" ng-app>
+<html lang="en" ng-app="springMVC">
 <head>
     <meta charset="utf-8">
     <title>Spring MVC with AngularJS</title>
@@ -32,23 +32,27 @@
             <h4 class="panel-title">Session Info</h4>
         </div>
         <div class="panel-body">
-            <div class="inlined">
-                <div ng-controller="getSessionInfo">
-                    <div>Session ID: {{sessionInfo.sessionId}}</div>
-                    <div>Creation timestamp: {{sessionInfo.creationTime}}</div>
+            <div class="inlined" ng-controller="Ctrl" ng-init="getSessionInfo()">
+                <div>
+                    <div><b>Session: </b>{{sessionInfo.sessionId}}</div>
+                    <div><b>Created: </b>{{sessionInfo.creationTime}}</div>
                 </div>
                 <div>
                     <div>
-                        <h4>Session-based Custom Input</h4>
+                        <br>
+                        <h4>Session-based custom input</h4>
                     </div>
-                    <form action="postInput" method="post">
-                        <input name="customInput" type="text" title="Custom Input: ">
+                    <form>
+                        <input ng-model="formInput">
                         <a class="submit-btn">
                             <button type="submit"
-                                    class="btn btn-primary btn-xs">Submit Input
+                                    ng-click="postInput()"
+                                    class="btn btn-primary btn-xs">Submit
                             </button>
                         </a>
                     </form>
+                </div>
+                <div>
                     <br>
                     ${customInput}
                 </div>
@@ -61,16 +65,34 @@
 </div>
 
 <script src="webjars/angularjs/1.4.1/angular.js"></script>
-<script src="webjars/angularjs/1.4.1/angular-route.js"></script>
-<script src="webjars/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.js"></script>
 
 <script>
-    function getSessionInfo($scope, $http) {
-        $http.get('getSessionInfo.json').
-                success(function (data) {
-                    $scope.sessionInfo = data;
-                });
-    }
+    angular.module('springMVC', []).controller(
+            'Ctrl',
+            function ($scope, $http, $window) {
+
+                $scope.getSessionInfo = function () {
+                    var respPromise = $http.get('getSessionInfo.json');
+                    respPromise.success(function (data) {
+                        $scope.sessionInfo = data;
+                        console.log('getSessionInfo() succeeded');
+                    });
+                    respPromise.error(function () {
+                        alert('getSessionInfo() failed');
+                    });
+                };
+
+                $scope.postInput = function () {
+                    var responsePromise = $http.post('postInput', $scope.formInput);
+                    responsePromise.success(function () {
+                        $window.location.reload();
+                        console.log('postInput() succeeded');
+                    });
+                    responsePromise.error(function () {
+                        alert('postInput() failed');
+                    });
+                };
+            });
 </script>
 
 </body>
