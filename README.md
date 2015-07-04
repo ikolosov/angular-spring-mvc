@@ -1,6 +1,6 @@
 ### Spring MVC with AngularJS
 This application was initially designed as a sample web app 
-for a purposes of concept demo of performance monitoring with Apache JMeter (refer pom.xml for the corresponding blog article url).
+for a purposes of performance monitoring with Apache JMeter concept demo (refer pom.xml for the corresponding blog article url).
 
 Anyway, it could be treated as a standalone Spring MVC with AngularJS example.  
 
@@ -24,7 +24,7 @@ Examine build log, make sure build was successful:
 
 *Optionally:*
 
-*Setup Apache Meter on your machine:*
+*Setup Apache JMeter on your machine:*
 [*guide*](http://jmeter.apache.org/usermanual/jmeter_proxy_step_by_step.pdf)
 
 *JMeter test scenario example:*
@@ -34,7 +34,7 @@ Examine build log, make sure build was successful:
 Once the app is assembled, deploy angular-spring-mvc.war to a Tomcat server.
 
 a. Client-side:
-`the root is index.jsp - it holds all the js scripting logic and css styling.` 
+`the root is index.jsp - it holds all the .js scripting logic and .css styling.` 
  
 b. Server-side:
 `the entry point is SessionController class, which is Spring MVC @Controller.`
